@@ -58,15 +58,15 @@ public class BarCodeActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        brightnessUtil.toOriginalBrightness();
+    protected void onStart() {
+        super.onStart();
+        brightnessUtil.toMaxBrightness();
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        brightnessUtil.toMaxBrightness();
+    protected void onPause() {
+        super.onPause();
+        brightnessUtil.toOriginalBrightness();
     }
 
     private void launchQRScanner() {

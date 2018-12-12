@@ -56,8 +56,7 @@ public class BrightnessUtil {
     }
 
     private void setMaxBrightness() {
-
-        //step1: 判斷亮度是否為自動, 是的話轉成手動調整模式
+        //step1: 判斷亮度目前是否為自動調整, 是的話要轉成手動調整模式再進行
         try {
             isAutoForOriginalBrightness = Settings.System.getInt(context.getContentResolver(),
                     Settings.System.SCREEN_BRIGHTNESS_MODE) ==
@@ -68,17 +67,15 @@ public class BrightnessUtil {
                         Settings.System.SCREEN_BRIGHTNESS,
                         Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
             }
-
-            //step2: 取得螢幕亮度
+            //step2: 手動模式中，取得當前螢幕亮度
             originalBrightness = Settings.System.getInt(context.getContentResolver(),Settings.System.SCREEN_BRIGHTNESS);
 
             //step3: 設定亮度範圍, 0是最暗，255最亮
-            int brightness = 255;
+            int maxBright = 255;
 
             //step4: 設定螢幕亮度
-            Settings.System.putInt(context.getContentResolver(),
-                    Settings.System.SCREEN_BRIGHTNESS,brightness);
-            isMaxBrightness = true;
+            Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,maxBright);
+            isMaxBrightness = true;//目前已是最大亮度
 
         }catch (Settings.SettingNotFoundException e){
             e.printStackTrace();
@@ -92,20 +89,12 @@ public class BrightnessUtil {
             return;
         }
         try {
-            if(isAutoForOriginalBrightness){
-                Settings.System.putInt(context.getContentResolver(),
-                        Settings.System.SCREEN_BRIGHTNESS,
-                        Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
-            }
+            int originalBright = originalBrightness;//置入原先取得的螢幕亮度
 
-            int brightness = originalBrightness;//置入原先取得的螢幕亮度
-
-            Settings.System.putInt(context.getContentResolver(),
-                    Settings.System.SCREEN_BRIGHTNESS,brightness);
-            isMaxBrightness = false;
+            Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, originalBright);
+            isMaxBrightness = false;//目前已不是最大亮度
         }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 }

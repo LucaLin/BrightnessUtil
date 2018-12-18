@@ -1,5 +1,6 @@
 package com.example.r30_a.BrightnessTestProject.util;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,13 +13,13 @@ import android.provider.Settings;
  * Created by lucalin on 2018/10/3.
  */
 
-public class BrightnessUtil {
+public class BrightnessUtil extends Activity{
 
     private int originalBrightness;
     private boolean isAutoForOriginalBrightness = false;
     private boolean isMaxBrightness = false;
     private Context context;
-
+    int screenMode;//當前系統亮度模式
     public BrightnessUtil(Context context){this.context = context;}
 
     //調整畫面亮度至最亮
@@ -58,13 +59,12 @@ public class BrightnessUtil {
     private void setMaxBrightness() {
         //step1: 判斷亮度目前是否為自動調整, 是的話要轉成手動調整模式再進行
         try {
-            isAutoForOriginalBrightness = Settings.System.getInt(context.getContentResolver(),
-                    Settings.System.SCREEN_BRIGHTNESS_MODE) ==
-                    Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC;
+            screenMode = Settings.System.getInt(context.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS_MODE);
 
-            if(isAutoForOriginalBrightness){
+            if(screenMode == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC){
                 Settings.System.putInt(context.getContentResolver(),
-                        Settings.System.SCREEN_BRIGHTNESS,
+                        Settings.System.SCREEN_BRIGHTNESS_MODE,
                         Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
             }
             //step2: 手動模式中，取得當前螢幕亮度
@@ -89,9 +89,11 @@ public class BrightnessUtil {
             return;
         }
         try {
-            int originalBright = originalBrightness;//置入原先取得的螢幕亮度
-
+            int originalBright = originalBrightness;
+            //置入原先取得的螢幕亮度
             Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, originalBright);
+            //回復使用者原先的亮度調整模式
+            Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE,screenMode);
             isMaxBrightness = false;//目前已不是最大亮度
         }catch (Exception e){
             e.printStackTrace();

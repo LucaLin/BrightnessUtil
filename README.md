@@ -21,4 +21,5 @@ QR code掃描付款時，亮度自動調整的test util
 
 ![](https://github.com/LucaLin/BrightnessUtil/blob/master/capture/3.png)
 
-
+關於這tool的說明文件如下：
+https://tpu.thinkpower.com.tw/tpu/articleDetails/1063

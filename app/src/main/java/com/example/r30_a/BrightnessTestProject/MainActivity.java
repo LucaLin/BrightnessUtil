@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.example.r30_a.BrightnessTestProject.R.layout.activity_main);
 
-        btn_getBarcode = (Button)findViewById(com.example.r30_a.BrightnessTestProject.R.id.btn_getBarcode);
+        btn_getBarcode = findViewById(R.id.btn_getBarcode);
 
         btn_getBarcode.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -42,8 +42,8 @@ public class BarCodeActivity extends AppCompatActivity {
         setContentView(com.example.r30_a.BrightnessTestProject.R.layout.activity_bar_code);
 
         brightnessUtil = new BrightnessUtil(this);
-        btnLaunchQR = (Button)findViewById(com.example.r30_a.BrightnessTestProject.R.id.btn_ScanQR);
-        imgQRCode = (ImageView)findViewById(com.example.r30_a.BrightnessTestProject.R.id.img_qr_code);
+        btnLaunchQR = findViewById(R.id.btn_ScanQR);
+        imgQRCode = findViewById(R.id.img_qr_code);
 
         makeBarcode();
 

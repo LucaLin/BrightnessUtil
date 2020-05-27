@@ -11,7 +11,7 @@ QR code掃描付款時，亮度自動調整的test util
 
 ![](https://github.com/LucaLin/BrightnessUtil/blob/master/capture/1.png)
 
-顯示QRcode
+顯示QRcode頁面時，螢幕亮度會達到最亮
 
 
 ![](https://github.com/LucaLin/BrightnessUtil/blob/master/capture/2.png)
